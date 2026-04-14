@@ -5,24 +5,14 @@ import { Link, useParams } from "react-router-dom"
 import { useFetch } from "../context/Context"
 import Footer from "./Footer"
 
-// Helper for Tailwind classes
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
 export default function DetailPage() {
-
     let { loading, error } = useFetch()
-    if (loading) {
-        return <div className='flex items-center justify-center h-screen animate-spin'><Loader2 size={30} /></div>
-    } if (error) {
-        return <div className='flex items-center justify-center h-screen text-4xl font-bold'>{error}</div>
-    }
-
     let { id } = useParams()
-    // Changed to null initially since API returns an Object
     let [productsInfo, setProductsInfo] = useState(null)
-
     let { cartProduct, setCartProduct } = useFetch()
 
     const handleAddToBag = (e) => {
@@ -31,145 +21,120 @@ export default function DetailPage() {
         const updatedCart = [...currentCart, productsInfo];
         localStorage.setItem("cart", JSON.stringify(updatedCart));
         setCartProduct([...cartProduct, productsInfo])
-        // alert("Product added!");
     };
-
 
     async function getProducts() {
         try {
             let response = await axios.get(`https://dummyjson.com/products/${id}`)
             setProductsInfo(response.data)
-        } catch (error) {
-            console.error("Error fetching product:", error)
-
+        } catch (err) {
+            console.error("Error fetching product:", err)
         }
     }
 
-
     useEffect(() => {
         getProducts();
+        window.scrollTo(0, 0);
     }, [id])
 
-    if (!productsInfo) return <div className="text-center py-20">Loading...</div>
+    if (loading) return <div className='flex items-center justify-center h-screen'><Loader2 className="animate-spin" size={40} /></div>
+    if (error) return <div className='flex items-center justify-center h-screen text-xl font-bold text-red-500'>{error}</div>
+    if (!productsInfo) return null;
 
     return (
-        <>
-            <div className="bg-white">
-                <div className="pt-6">
-                    <nav aria-label="Breadcrumb">
-                        <ol role="list" className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
-                            <li className="text-sm">
-                                <Link to={"/"} className="font-medium text-gray-500 hover:text-gray-600">
-                                    {productsInfo.category}
-                                </Link>
-                            </li>
-                            <svg width={16} height={20} viewBox="0 0 16 20" fill="currentColor" className="h-5 w-4 text-gray-300">
-                                <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
-                            </svg>
-                            <li className="text-sm">
-                                <span className="font-medium text-gray-900">{productsInfo.title}</span>
-                            </li>
-                        </ol>
-                    </nav>
+        <div className="bg-white min-h-screen">
+            <div className="pt-6">
+                {/* 1. Breadcrumb - Responsive Padding */}
+                <nav aria-label="Breadcrumb" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <ol role="list" className="flex items-center space-x-2 text-sm text-gray-500">
+                        <li>
+                            <Link to="/" className="hover:text-indigo-600 capitalize">{productsInfo.category}</Link>
+                        </li>
+                        <svg width={16} height={20} viewBox="0 0 16 20" fill="currentColor" className="h-5 w-4 text-gray-300">
+                            <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
+                        </svg>
+                        <li className="font-medium text-gray-900 truncate max-w-[150px] sm:max-w-none">
+                            {productsInfo.title}
+                        </li>
+                    </ol>
+                </nav>
 
-                    {/* Image gallery - Dynamically using productsInfo.images */}
-                    <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-8 lg:px-8">
-                        <img
-                            alt="Primary"
-                            src={productsInfo.images[0]}
-                            className="row-span-2 aspect-3/4 size-full rounded-lg object-cover max-lg:hidden"
-                        />
-                        {productsInfo.images[1] && (
+                {/* 2. Main Layout - Mobile: Single Column | Desktop: Grid */}
+                <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:grid lg:grid-cols-2 lg:gap-x-12 lg:px-8">
+
+                    {/* LEFT: Image Gallery */}
+                    <div className="flex flex-col items-center">
+                        <div className="w-full bg-gray-50 rounded-2xl p-4 flex items-center justify-center aspect-square">
                             <img
-                                alt="Secondary"
-                                src={productsInfo.images[1]}
-                                className="col-start-2 aspect-3/2 size-full rounded-lg object-cover max-lg:hidden"
+                                alt={productsInfo.title}
+                                src={productsInfo.images[0]}
+                                className="max-h-full w-auto object-contain transition-transform duration-300 hover:scale-105"
                             />
-                        )}
-                        <img
-                            alt="Thumbnail"
-                            src={productsInfo.thumbnail}
-                            className="col-start-2 row-start-2 aspect-3/2 size-full rounded-lg object-cover max-lg:hidden"
-                        />
-                        <img
-                            alt="Last"
-                            src={productsInfo.images[productsInfo.images.length - 1]}
-                            className="row-span-2 aspect-4/5 size-full object-cover sm:rounded-lg lg:aspect-3/4"
-                        />
+                        </div>
+                        {/* Thumbnails Row */}
+                        <div className="flex gap-4 mt-4 overflow-x-auto pb-2 no-scrollbar w-full justify-center lg:justify-start">
+
+                        </div>
                     </div>
 
-                    <div className="mx-auto max-w-2xl px-4 pt-10 pb-16 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8 lg:pt-16 lg:pb-24">
-                        <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
-                            <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{productsInfo.title}</h1>
-                        </div>
+                    {/* RIGHT: Product Info */}
+                    <div className="mt-8 lg:mt-0">
+                        <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">{productsInfo.title}</h1>
 
-                        {/* Options */}
-                        <div className="mt-4 lg:row-span-3 lg:mt-0">
-                            <h2 className="sr-only">Product information</h2>
-                            <p className="text-3xl tracking-tight text-gray-900">${productsInfo.price}</p>
-
-                            {/* Dynamic Reviews/Rating */}
-                            <div className="mt-6">
-                                <h3 className="sr-only">Reviews</h3>
-                                <div className="flex items-center">
-                                    <div className="flex items-center">
-                                        {[0, 1, 2, 3, 4].map((rating) => (
-                                            <Star
-                                                key={rating}
-                                                aria-hidden="true"
-                                                className={classNames(
-                                                    productsInfo.rating > rating ? 'text-yellow-500 fill-yellow-500' : 'text-gray-200',
-                                                    'size-5 shrink-0',
-                                                )}
-                                            />
-                                        ))}
-                                    </div>
-                                    <p className="ml-2 text-sm text-gray-600">({productsInfo.rating})</p>
-                                    <span className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                                        {productsInfo.reviews?.length} reviews
-                                    </span>
-                                </div>
-                            </div>
-
-                            <form className="mt-10">
-                                <button
-                                    onClick={handleAddToBag}
-                                    type="button"
-                                    className="flex w-full items-center cursor-pointer justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700"
-                                >
-                                    Add to cart
-                                </button>
-                            </form>
-
-                            <div className="mt-6 border-t pt-4">
-                                <p className="text-sm text-gray-500">Stock: {productsInfo.availabilityStatus} ({productsInfo.stock} units)</p>
-                                <p className="text-sm text-gray-500">Brand: {productsInfo.brand}</p>
+                        <div className="mt-4 flex items-center justify-between lg:justify-start lg:gap-8">
+                            <p className="text-3xl font-bold text-gray-900">${productsInfo.price}</p>
+                            {/* Rating */}
+                            <div className="flex items-center gap-1 bg-yellow-50 px-3 py-1 rounded-full">
+                                <Star size={18} className="text-yellow-500 fill-yellow-500" />
+                                <span className="text-sm font-bold text-yellow-700">{productsInfo.rating}</span>
                             </div>
                         </div>
 
-                        <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pt-6 lg:pr-8 lg:pb-16">
+                        {/* Stock & Brand Badges */}
+                        <div className="mt-6 flex flex-wrap gap-3">
+                            <span className="bg-indigo-50 text-indigo-700 text-xs font-bold px-3 py-1 rounded-md uppercase">
+                                Brand: {productsInfo.brand || "Generic"}
+                            </span>
+                            <span className={classNames(
+                                productsInfo.stock > 0 ? "bg-green-50 text-green-700" : "bg-red-50 text-red-700",
+                                "text-xs font-bold px-3 py-1 rounded-md uppercase"
+                            )}>
+                                {productsInfo.availabilityStatus} ({productsInfo.stock})
+                            </span>
+                        </div>
+
+                        <div className="mt-8">
+                            <h3 className="text-sm font-bold text-gray-900 uppercase tracking-widest">Description</h3>
+                            <p className="mt-3 text-base text-gray-600 leading-relaxed">
+                                {productsInfo.description}
+                            </p>
+                        </div>
+
+                        {/* Action Button */}
+                        <div className="mt-10">
+                            <button
+                                onClick={handleAddToBag}
+                                className="w-full bg-indigo-600 text-white py-4 px-8 rounded-xl font-bold text-lg hover:bg-indigo-700 active:scale-95 transition-all shadow-lg shadow-indigo-100"
+                            >
+                                Add to Cart
+                            </button>
+                        </div>
+
+                        {/* Extra Info Grid */}
+                        <div className="mt-10 border-t border-gray-100 pt-8 grid grid-cols-2 gap-y-8 gap-x-4">
                             <div>
-                                <h3 className="text-sm font-medium text-gray-900 underline">Description</h3>
-                                <div className="mt-4 space-y-6">
-                                    <p className="text-base text-gray-900">{productsInfo.description}</p>
-                                </div>
+                                <h3 className="text-xs font-bold text-gray-400 uppercase">Return Policy</h3>
+                                <p className="mt-2 text-sm text-gray-900">{productsInfo.returnPolicy}</p>
                             </div>
-
-                            <div className="mt-10">
-                                <h3 className="text-sm font-medium text-gray-900">Return Policy</h3>
-                                <p className="mt-4 text-sm text-gray-600">{productsInfo.returnPolicy}</p>
-                            </div>
-
-                            <div className="mt-10">
-                                <h3 className="text-sm font-medium text-gray-900">Shipping Information</h3>
-                                <p className="mt-4 text-sm text-gray-600">{productsInfo.shippingInformation}</p>
+                            <div>
+                                <h3 className="text-xs font-bold text-gray-400 uppercase">Shipping</h3>
+                                <p className="mt-2 text-sm text-gray-900">{productsInfo.shippingInformation}</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <Footer />
-
-        </>
+        </div>
     )
 }
