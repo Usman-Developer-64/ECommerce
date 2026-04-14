@@ -2,6 +2,7 @@ import { Loader2 } from "lucide-react";
 import Card from "../components/Card";
 import { useFetch } from "../context/Context";
 import Footer from "./Footer";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
   const { cartProduct, loading, error } = useFetch();
@@ -41,18 +42,19 @@ const Cart = () => {
           /* Empty Cart State */
           <div className="flex flex-col items-center justify-center py-20">
             <p className="text-xl text-gray-500 mb-5">Your cart is empty!</p>
-            <button 
-              onClick={() => window.history.back()}
-              className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+            <Link
+              to="/"
+              className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors inline-block"
             >
               Go Shopping
-            </button>
+            </Link>
           </div>
-        )}
-      </main>
+        )
+        }
+      </main >
 
       <Footer />
-    </div>
+    </div >
   );
 };
 
