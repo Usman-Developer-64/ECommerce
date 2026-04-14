@@ -1,6 +1,7 @@
 import { Loader2 } from "lucide-react";
 import Card from "../components/Card"
 import { useFetch } from "../context/Context";
+import Footer from "./Footer";
 
 const Cart = () => {
   let { loading, error } = useFetch()
@@ -12,13 +13,16 @@ const Cart = () => {
 
   const { cartProduct } = useFetch();
   return (
-    <div className='flex flex-wrap gap-10 justify-evenly px-25 mt-20'>
-      {
-        cartProduct?.map((item, index) => (
-          <Card key={index} item={item} isCart={true} index={index} />
-        ))
-      }
-    </div>
+    <>
+      <div className='flex flex-wrap gap-10 justify-evenly px-25 mt-20'>
+        {
+          cartProduct?.map((item, index) => (
+            <Card key={index} item={item} isCart={true} index={index} />
+          ))
+        }
+      </div>
+      <Footer />
+    </>
   )
 }
 

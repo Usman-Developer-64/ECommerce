@@ -2,6 +2,7 @@ import { Loader2 } from 'lucide-react'
 import { useFetch } from '../context/Context'
 import Tab from '../components/Tab'
 import Card from '../components/Card'
+import Footer from './Footer'
 
 const Home = () => {
   let { filterProduct, loading, error } = useFetch()
@@ -22,6 +23,8 @@ const Home = () => {
           ))
         }
       </div>
+      <Footer />
+
     </>
   )
 }

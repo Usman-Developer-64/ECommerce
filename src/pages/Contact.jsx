@@ -1,3 +1,4 @@
+import Footer from "./Footer";
 
 export default function Contact() {
 
@@ -96,6 +97,8 @@ export default function Contact() {
                     </div>
                 </div>
             </section>
+            <Footer />
+
         </>
     )
 }
