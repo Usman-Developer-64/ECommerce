@@ -9,7 +9,7 @@ const Navbar = () => {
     let navigate = useNavigate()
     let { cartProduct } = useFetch()
     const { signOut } = useClerk();
-    const [isOpen, setIsOpen] = useState(false); 
+    const [isOpen, setIsOpen] = useState(false);
 
     async function logout() {
         await signOut({ redirectUrl: '/login' });
@@ -26,7 +26,7 @@ const Navbar = () => {
     ]
 
     return (
-        <nav className='h-20 shadow-2xl px-6 md:px-20 lg:px-30 items-center flex flex-row justify-between relative bg-white'>
+        <nav className='h-20 shadow-2xl px-6 sticky top-0 left-0 right-0 z-100 md:px-20 lg:px-30 items-center flex flex-row justify-between  bg-white '>
             <h1 className="font-bold text-xl">E-commerce</h1>
 
             {/* Desktop Menu */}
