@@ -1,13 +1,12 @@
 import Footer from "./Footer";
 
 export default function Contact() {
-
     const handleSubmit = (e) => {
         e.preventDefault();
     };
 
     return (
-        <>
+        <div className="flex flex-col min-h-screen"> {/* Footer fix ke liye wrapper */}
             <style>
                 {`
                     @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
@@ -17,88 +16,87 @@ export default function Contact() {
                 `}
             </style>
 
-            <section className="flex items-center justify-center py-12 px-4">
-                <div className="grid md:grid-cols-2 md:gap-10 lg:gap-20 max-w-7xl w-full items-center">
+            {/* flex-grow is liye taake footer neechay rahay */}
+            <main className="flex-grow flex items-center justify-center py-10 md:py-20 px-4">
+                <div className="grid md:grid-cols-2 gap-10 lg:gap-20 max-w-7xl w-full items-stretch">
 
-                    <div className="p-5">
-                        <h1 className="text-3xl font-semibold text-gray-900 text-center md:text-start mb-3 tracking-tight">
+                    {/* Left side: Form */}
+                    <div className="p-2 md:p-5">
+                        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 text-center md:text-start mb-4 tracking-tight">
                             Get in touch
                         </h1>
-                        <p className="text-sm/6 text-gray-600 text-center md:text-start mx-auto md:mx-0 mb-8 leading-relaxed max-w-100">
+                        <p className="text-base text-gray-600 text-center md:text-start mb-10 leading-relaxed max-w-md mx-auto md:mx-0">
                             Have a question or idea? Our approachable team would love to connect and support you.
                         </p>
 
-                        {/* YAHAN TABDEELI KI HAI */}
-                        <form onSubmit={handleSubmit}>
-                            <div className="grid grid-cols-2 gap-4 mb-5">
+                        <form onSubmit={handleSubmit} className="space-y-5">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-sm text-gray-500 mb-2">First name</label>
-                                    <input type="text" placeholder="David" className="w-full px-3 py-3 border border-gray-300 rounded-lg text-sm outline-none focus:border-indigo-500 transition-colors" />
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">First name</label>
+                                    <input type="text" placeholder="David" className="w-full px-4 py-3 border border-gray-300 rounded-xl text-sm outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all" />
                                 </div>
                                 <div>
-                                    <label className="block text-sm text-gray-500 mb-2">Last name</label>
-                                    <input type="text" placeholder="Andrew" className="w-full px-3 py-3 border border-gray-300 rounded-lg text-sm outline-none focus:border-indigo-500 transition-colors" />
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">Last name</label>
+                                    <input type="text" placeholder="Andrew" className="w-full px-4 py-3 border border-gray-300 rounded-xl text-sm outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all" />
                                 </div>
                             </div>
 
-                            <div className="mb-5">
-                                <label className="block text-sm text-gray-500 mb-2">Email id</label>
-                                <input type="email" placeholder="david@company.com" className="w-full px-3 py-3 border border-gray-300 rounded-lg text-sm outline-none focus:border-indigo-500 transition-colors" />
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Email id</label>
+                                <input type="email" placeholder="david@company.com" className="w-full px-4 py-3 border border-gray-300 rounded-xl text-sm outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all" />
                             </div>
 
-                            <div className="mb-5">
-                                <label className="block text-sm text-gray-500 mb-2">Phone number</label>
-                                <div className="flex border border-gray-300 rounded-lg overflow-hidden focus-within:border-indigo-500 transition-colors">
-                                    <select className="px-3 py-3 text-sm outline-none cursor-pointer text-gray-500 bg-white border-r border-gray-300">
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Phone number</label>
+                                <div className="flex border border-gray-300 rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-indigo-500 transition-all">
+                                    <select className="px-3 py-3 text-sm outline-none cursor-pointer text-gray-600 bg-gray-50 border-r border-gray-300">
                                         <option>US</option>
-                                        <option>UK</option>
-                                        <option>IN</option>
-                                        <option>CA</option>
                                         <option>PK</option>
+                                        <option>IN</option>
                                     </select>
-                                    <input type="tel" placeholder="+1 342 123-456" className="flex-1 px-3 py-3 text-sm outline-none" />
+                                    <input type="tel" placeholder="+1 342 123-456" className="flex-1 px-4 py-3 text-sm outline-none" />
                                 </div>
                             </div>
 
-                            <div className="mb-5">
-                                <label className="block text-sm text-gray-500 mb-2">Message</label>
-                                <textarea rows="4" className="w-full px-3 py-3 border border-gray-300 rounded-lg text-sm outline-none resize-y focus:border-indigo-500 transition-colors" />
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                                <textarea rows="4" placeholder="How can we help?" className="w-full px-4 py-3 border border-gray-300 rounded-xl text-sm outline-none resize-none focus:ring-2 focus:ring-indigo-500 transition-all" />
                             </div>
 
-                            <div className="flex items-center gap-2 mb-6">
-                                <input type="checkbox" className="w-5 h-5 cursor-pointer accent-indigo-500 rounded-[5px] text-gray-300" />
-                                <label className="text-sm text-gray-500 cursor-pointer">
-                                    You agree to our <span className="underline">terms</span> and <span className="underline">privacy policy</span>.
+                            <div className="flex items-start gap-3">
+                                <input type="checkbox" id="terms" className="w-5 h-5 mt-0.5 cursor-pointer accent-indigo-600 rounded" />
+                                <label htmlFor="terms" className="text-sm text-gray-500 cursor-pointer">
+                                    You agree to our <span className="text-indigo-600 font-medium underline">terms</span> and <span className="text-indigo-600 font-medium underline">privacy policy</span>.
                                 </label>
                             </div>
 
-                            <button type="submit" className="w-full py-3.5 bg-linear-to-br from-indigo-500 to-purple-600 text-white rounded-lg text-sm cursor-pointer transition-all hover:-translate-y-0.5 hover:shadow-[0_10px_20px_rgba(99,102,241,0.3)]" >
+                            <button type="submit" className="w-full py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-xl text-sm cursor-pointer shadow-lg hover:shadow-indigo-200 transition-all hover:-translate-y-1 active:scale-[0.98]">
                                 Send message
                             </button>
                         </form>
                     </div>
 
-                    {/* Right side image section remains same */}
-                    <div className="rounded-3xl p-10 relative min-h-165.5 w-full max-w-130 hidden md:flex flex-col justify-between overflow-hidden">
-                        <img src={"https://assets.prebuiltui.com/images/components/form/form-rightside-image.png"} alt="3D shapes" className="absolute inset-0 w-full h-full object-cover" />
-                        <div className="relative z-10 mt-auto">
-                            <p className="text-sm/6 text-white mb-5 max-w-100">
-                                Stop spending hours recreating layouts - with <strong>PrebuiltUI</strong> you can copy, customize and launch stunning UIs in minutes.
+                    {/* Right side: Image (Hidden on Mobile) */}
+                    <div className="hidden md:flex rounded-3xl p-10 relative overflow-hidden flex-col justify-end min-h-[500px]">
+                        <img
+                            src="https://assets.prebuiltui.com/images/components/form/form-rightside-image.png"
+                            alt="3D shapes"
+                            className="absolute inset-0 w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+
+                        <div className="relative z-10">
+                            <p className="text-lg text-white mb-4 leading-relaxed italic">
+                                "Stop spending hours recreating layouts - with PrebuiltUI you can copy, customize and launch stunning UIs in minutes."
                             </p>
-                            <p className="text-sm text-white mb-4 text-right">
-                                ━ Emily Rodriguez
-                            </p>
-                            <div className="flex justify-end gap-2 items-center">
-                                <div className="w-2.5 h-2.5 rounded-full bg-white"></div>
-                                <div className="w-2.5 h-2.5 rounded-full bg-white"></div>
-                                <div className="w-2.5 h-2.5 rounded-full bg-gray-400"></div>
-                            </div>
+                            <p className="text-white font-medium">━ Emily Rodriguez</p>
                         </div>
                     </div>
-                </div>
-            </section>
-            <Footer />
 
-        </>
-    )
+                </div>
+            </main>
+
+            <Footer />
+        </div>
+    );
 }

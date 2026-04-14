@@ -135,7 +135,7 @@ export default function DetailPage() {
                                 <button
                                     onClick={handleAddToBag}
                                     type="button"
-                                    className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700"
+                                    className="flex w-full items-center cursor-pointer justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700"
                                 >
                                     Add to cart
                                 </button>
