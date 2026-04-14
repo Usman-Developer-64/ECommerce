@@ -19,7 +19,7 @@ export default function Tab() {
     return (
         <div className="w-full">
             {/* Desktop Heading - Sirf baray screens par dikhegi */}
-            <h3 className="font-bold text-gray-700 px-2 mb-4 hidden md:block text-lg border-b pb-2">
+            <h3 className="font-bold text-gray-700 px-2 mb-4 hidden md:block text-lg  pb-2">
                 Categories
             </h3>
 
@@ -34,8 +34,8 @@ export default function Tab() {
                 <button
                     onClick={() => setSelectTab("All")}
                     className={`px-5 py-2 md:py-2.5 rounded-full md:rounded-xl border text-sm md:text-base whitespace-nowrap transition-all ${selectTab === "All"
-                            ? "bg-indigo-600 text-white border-indigo-600 shadow-sm"
-                            : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50"
+                        ? "bg-indigo-600 text-white border-indigo-600 shadow-sm"
+                        : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50"
                         }`}
                 >
                     All Products
@@ -47,8 +47,8 @@ export default function Tab() {
                         key={index}
                         onClick={() => setSelectTab(item.slug)}
                         className={`px-5 py-2 md:py-2.5 rounded-full md:rounded-xl border text-sm md:text-base whitespace-nowrap capitalize transition-all ${selectTab === item.slug
-                                ? "bg-indigo-600 text-white border-indigo-600 shadow-sm"
-                                : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50"
+                            ? "bg-indigo-600 text-white border-indigo-600 shadow-sm"
+                            : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50"
                             }`}
                     >
                         {item.name}

@@ -24,18 +24,18 @@ const Home = () => {
         <Tab />
       </div>
 
-      <div className='flex flex-col md:flex-row flex-grow md:overflow-hidden'>
+      <div className='flex flex-col md:flex-row grow md:overflow-hidden'>
 
         {/* DESKTOP SIDEBAR: Yeh mobile par hidden rahega */}
         <aside className='hidden md:block w-[20%] border-r border-gray-200 h-full overflow-y-auto no-scrollbar bg-white'>
           <div className='p-6'>
-            <h2 className='font-bold mb-4 text-gray-800 text-lg border-b pb-2'>Filters</h2>
+            <h2 className='font-bold mb-4 text-gray-800 text-lg   pb-2'>Filters</h2>
             <Tab />
           </div>
         </aside>
 
         {/* MAIN PRODUCT AREA */}
-        <main className='flex-grow h-full overflow-y-auto bg-gray-50 px-4 sm:px-6 lg:px-10 py-6 md:py-10'>
+        <main className='grow h-full overflow-y-auto bg-gray-50 px-4 sm:px-6 lg:px-10 py-6 md:py-10'>
 
           {/* Grid Layout Adjustment */}
           <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-8 justify-items-center'>
