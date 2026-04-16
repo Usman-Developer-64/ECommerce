@@ -17,7 +17,7 @@ export default function Contact() {
             </style>
 
             {/* flex-grow is liye taake footer neechay rahay */}
-            <main className="flex-grow flex items-center justify-center py-10 md:py-20 px-4">
+            <main className="grow flex items-center justify-center py-10 md:py-20 px-4">
                 <div className="grid md:grid-cols-2 gap-10 lg:gap-20 max-w-7xl w-full items-stretch">
 
                     {/* Left side: Form */}
@@ -70,20 +70,20 @@ export default function Contact() {
                                 </label>
                             </div>
 
-                            <button type="submit" className="w-full py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-xl text-sm cursor-pointer shadow-lg hover:shadow-indigo-200 transition-all hover:-translate-y-1 active:scale-[0.98]">
+                            <button type="submit" className="w-full py-4 bg-linear-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-xl text-sm cursor-pointer shadow-lg hover:shadow-indigo-200 transition-all hover:-translate-y-1 active:scale-[0.98]">
                                 Send message
                             </button>
                         </form>
                     </div>
 
                     {/* Right side: Image (Hidden on Mobile) */}
-                    <div className="hidden md:flex rounded-3xl p-10 relative overflow-hidden flex-col justify-end min-h-[500px]">
+                    <div className="hidden md:flex rounded-3xl p-10 relative overflow-hidden flex-col justify-end min-h-125">
                         <img
                             src="https://assets.prebuiltui.com/images/components/form/form-rightside-image.png"
                             alt="3D shapes"
                             className="absolute inset-0 w-full h-full object-cover"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                        <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent"></div>
 
                         <div className="relative z-10">
                             <p className="text-lg text-white mb-4 leading-relaxed italic">
