@@ -1,6 +1,19 @@
+import { Loader2 } from "lucide-react";
+import { useFetch } from "../context/Context";
 import Footer from "./Footer";
 
 export default function Contact() {
+    let { loading, error } = useFetch()
+
+    if (loading) {
+        return <div className='flex items-center justify-center h-screen'><Loader2 className='animate-spin text-blue-500' size={40} /></div>
+    }
+
+    if (error) {
+        return <div className='flex items-center justify-center h-screen text-2xl md:text-4xl font-bold text-red-500 text-center px-4'>{error}</div>
+    }
+
+
     const handleSubmit = (e) => {
         e.preventDefault();
     };

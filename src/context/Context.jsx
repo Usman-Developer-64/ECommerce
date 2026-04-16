@@ -4,7 +4,14 @@ import { createContext, useContext, useEffect, useState } from "react";
 let context_store = createContext()
 
 function Context({ children }) {
-    let [cartProduct, setCartProduct] = useState([])
+
+
+    let [cartProduct, setCartProduct] = useState(() => {
+        const savedCart = localStorage.getItem("my_cart");
+        return savedCart ? JSON.parse(savedCart) : [];
+    });
+
+    // let [cartProduct, setCartProduct] = useState([])
     let [filterProduct, setFilterProduct] = useState([])
     let [products, setProducts] = useState([])
     let [loading, setLoading] = useState(false)
@@ -60,9 +67,9 @@ function Context({ children }) {
     }, [selectTab, search, products])
 
 
-
-
-
+    useEffect(() => {
+        localStorage.setItem("my_cart", JSON.stringify(cartProduct));
+    }, [cartProduct]);
     // let values = { products, search, setSearch, context_store, setProducts, filterProduct, category, selectTab, setSelectTab, loading, error, setFilterProduct }
     return (
         <context_store.Provider value={{

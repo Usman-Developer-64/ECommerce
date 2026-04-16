@@ -6,6 +6,17 @@ import { useFetch } from "../context/Context"
 import Footer from "./Footer"
 
 function classNames(...classes) {
+    let { loading, error } = useFetch()
+    if (loading) {
+        return <div className='flex items-center justify-center h-screen'><Loader2 className='animate-spin' size={40} /></div>
+    }
+
+    if (error) {
+        return <div className='flex items-center justify-center h-screen text-2xl md:text-4xl font-bold text-red-500 text-center px-4'>{error}</div>
+    }
+
+
+
     return classes.filter(Boolean).join(' ')
 }
 

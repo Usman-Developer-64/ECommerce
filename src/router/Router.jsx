@@ -3,9 +3,10 @@ import Home from "../pages/Home"
 import Collection from "../pages/Collection"
 import Cart from "../pages/Cart"
 import Login from "../pages/Login"
-import { RedirectToSignIn, SignOutButton } from "@clerk/react"
+import { RedirectToSignIn } from "@clerk/react"
 import DetailPage from "../pages/DetailPage"
 import Contact from "../pages/Contact"
+import Private from "../components/Private"
 
 const Router = () => {
     // let { user } = useUser()
@@ -13,16 +14,17 @@ const Router = () => {
 
     return (
         <Routes>
-            <Route path="/login" element={<Login />} />
+            {/* <Route element={<Private />}> */}
             <Route index element={<Home />} />
             <Route path="/collection" element={<Collection />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/product/:id" element={<DetailPage />} />
+            {/* </Route> */}
+            <Route path="/login" element={<Login />} />
             <Route path="*" element={
-                <SignOutButton>
-                    <RedirectToSignIn />
-                </SignOutButton>
+                <RedirectToSignIn />
+
             } />
         </Routes>
 
