@@ -20,7 +20,7 @@ const Home = () => {
     <div className='flex flex-col md:h-screen md:overflow-hidden'>
 
       {/* MOBILE TAB SECTION: Yeh sirf mobile (sm) par nazar aayega */}
-      <div className='md:hidden bg-white border-b sticky top-0 z-20 p-2'>
+      <div className='md:hidden bg-white  sticky top-0 z-20 p-2'>
         <Tab />
       </div>
 

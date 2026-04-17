@@ -45,7 +45,7 @@ const Navbar = () => {
 
             <div className="hidden lg:flex items-center text-sm gap-2 border border-gray-300 px-3 rounded-full">
                 <input value={search} onChange={(e) => setSearch(e.target.value)} className="py-1.5 w-full bg-transparent outline-none placeholder-gray-500" type="text" placeholder="Search products" />
-                <Search />
+                <Search className="cursor-pointer" />
             </div>
 
 
