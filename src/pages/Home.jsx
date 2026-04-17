@@ -27,12 +27,12 @@ const Home = () => {
       <div className='flex flex-col md:flex-row grow md:overflow-hidden'>
 
         {/* DESKTOP SIDEBAR: Yeh mobile par hidden rahega */}
-        <aside className='hidden md:block w-[20%] border-r border-gray-200 h-full overflow-y-auto no-scrollbar bg-white'>
+        <div className='hidden md:block w-[20%] border-r border-gray-200 h-full overflow-y-auto no-scrollbar bg-white'>
           <div className='p-6'>
             <h2 className='font-bold mb-4 text-gray-800 text-lg   pb-2'>Filters</h2>
             <Tab />
           </div>
-        </aside>
+        </div>
 
         {/* MAIN PRODUCT AREA */}
         <main className='grow h-full overflow-y-auto bg-gray-50 px-4 sm:px-6 lg:px-10 py-6 md:py-10'>
