@@ -6,7 +6,7 @@ import Login from "../pages/Login"
 import { RedirectToSignIn } from "@clerk/react"
 import DetailPage from "../pages/DetailPage"
 import Contact from "../pages/Contact"
-import Private from "../components/Private"
+// import Private from "../components/Private"
 
 const Router = () => {
     // let { user } = useUser()

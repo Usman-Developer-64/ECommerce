@@ -1,5 +1,5 @@
 import { NavLink, useLocation, useNavigate } from "react-router-dom"
-import { LogOut, ShoppingCart, Menu, X } from "lucide-react"; // Menu aur X icons add kiye
+import { LogOut, ShoppingCart, Menu, X, Search } from "lucide-react"; // Menu aur X icons add kiye
 import { useFetch } from "../context/Context";
 import { useClerk } from "@clerk/react";
 import { useState } from "react"; // State add ki
@@ -9,6 +9,7 @@ const Navbar = () => {
     let navigate = useNavigate()
     let { cartProduct } = useFetch()
     const { signOut } = useClerk();
+    let { search, setSearch } = useFetch()
     const [isOpen, setIsOpen] = useState(false);
 
     async function logout() {
@@ -41,6 +42,12 @@ const Navbar = () => {
                     </NavLink>
                 ))}
             </div>
+
+            <div className="hidden lg:flex items-center text-sm gap-2 border border-gray-300 px-3 rounded-full">
+                <input value={search} onChange={(e) => setSearch(e.target.value)} className="py-1.5 w-full bg-transparent outline-none placeholder-gray-500" type="text" placeholder="Search products" />
+                <Search />
+            </div>
+
 
             <div className="flex items-center gap-4">
                 {/* Cart Icon */}
