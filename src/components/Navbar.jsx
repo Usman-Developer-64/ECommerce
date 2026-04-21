@@ -66,8 +66,6 @@ const Navbar = () => {
 
                 <div className="flex gap-3 items-center">
                     <UserButton />
-
-
                 </div>
 
 
@@ -97,7 +95,12 @@ const Navbar = () => {
                     <span className="text-white font-medium">Logout</span>
                 </div>
             </div>
+
+            
         </nav>
+
+
+
     )
 }
 
