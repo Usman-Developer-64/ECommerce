@@ -1,7 +1,7 @@
 import { NavLink, useLocation, useNavigate } from "react-router-dom"
 import { LogOut, ShoppingCart, Menu, X, Search } from "lucide-react"; // Menu aur X icons add kiye
 import { useFetch } from "../context/Context";
-import { useClerk } from "@clerk/react";
+import { Show, SignInButton, SignOutButton, SignUp, useClerk, UserButton } from "@clerk/react";
 import { useState } from "react"; // State add ki
 
 const Navbar = () => {
@@ -59,10 +59,19 @@ const Navbar = () => {
                 </div>
 
                 {/* Logout Button (Desktop) */}
-                <div onClick={logout} className="hidden md:flex gap-1 bg-red-600 cursor-pointer px-4 py-2 rounded-xl items-center hover:bg-red-700 transition-colors">
+                {/* <div onClick={logout} className="hidden md:flex gap-1 bg-red-600 cursor-pointer px-4 py-2 rounded-xl items-center hover:bg-red-700 transition-colors">
                     <LogOut size={18} className="text-white" />
                     <span className="text-white text-sm">Logout</span>
+                </div> */}
+
+                <div className="flex gap-3 items-center">
+                    <UserButton />
+
+
                 </div>
+
+
+
 
                 {/* Mobile Menu Toggle Button */}
                 <div className="md:hidden cursor-pointer" onClick={() => setIsOpen(!isOpen)}>

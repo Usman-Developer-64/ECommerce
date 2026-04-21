@@ -1,33 +1,35 @@
-import { Route, Routes } from "react-router-dom"
+import { Navigate, Route, Routes } from "react-router-dom"
 import Home from "../pages/Home"
 import Collection from "../pages/Collection"
 import Cart from "../pages/Cart"
 import Login from "../pages/Login"
-import { RedirectToSignIn } from "@clerk/react"
+import { useUser } from "@clerk/react"
 import DetailPage from "../pages/DetailPage"
 import Contact from "../pages/Contact"
-// import Private from "../components/Private"
+import Layout from "../pages/Layout"
+import Private from "../components/Private"
 
 const Router = () => {
-    // let { user } = useUser()
-    // console.log(user);
+    const { user, isLoaded } = useUser()
+
+    if (!isLoaded) return null
 
     return (
         <Routes>
-            {/* <Route element={<Private />}> */}
-            <Route index element={<Home />} />
-            <Route path="/collection" element={<Collection />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/product/:id" element={<DetailPage />} />
-            {/* </Route> */}
-            <Route path="/login" element={<Login />} />
-            <Route path="*" element={
-                <RedirectToSignIn />
+            <Route path="/login" element={!user ? <Login /> : <Navigate to="/" />} />
 
-            } />
+            <Route element={<Private />}>
+                {/* <Route element={<Layout />}> */}
+                <Route path="/" element={<Home />} />
+                <Route path="collection" element={<Collection />} />
+                <Route path="contact" element={<Contact />} />
+                <Route path="cart" element={<Cart />} />
+                <Route path="product/:id" element={<DetailPage />} />
+                {/* </Route> */}
+            </Route>
+
+            <Route path="*" element={<Navigate to="/" />} />
         </Routes>
-
     )
 }
 

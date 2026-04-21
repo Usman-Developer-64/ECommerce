@@ -1,14 +1,14 @@
 import React from 'react'
 import { Navigate, Outlet } from 'react-router-dom'
+import { useUser } from '@clerk/react'
 
 const Private = () => {
-    let getUser = localStorage.getItem("isLogin")
+    const { isSignedIn, isLoaded } = useUser()
+
+    if (!isLoaded) return null
+
     return (
-        <>
-            {
-                getUser ? <Outlet /> : <Navigate to={"/login"} />
-            }
-        </>
+        isSignedIn ? <Outlet /> : <Navigate to="/login" replace />
     )
 }
 

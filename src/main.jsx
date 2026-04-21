@@ -14,12 +14,12 @@ if (!PUBLISHABLE_KEY) {
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <Context>
-      <BrowserRouter>
-        <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
+    <BrowserRouter>
+      <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
+        <Context>
           <App />
-        </ClerkProvider>
-      </BrowserRouter>
-    </Context>
+        </Context>
+      </ClerkProvider>
+    </BrowserRouter>
   </StrictMode>,
 )
