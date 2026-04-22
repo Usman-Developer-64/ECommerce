@@ -19,7 +19,7 @@ const Router = () => {
             <Route path="/login" element={!user ? <Login /> : <Navigate to="/" />} />
 
             <Route element={<Private />}>
-                {/* <Route element={<Layout />}> */}
+                
                 <Route path="/" element={<Home />} />
                 <Route path="collection" element={<Collection />} />
                 <Route path="contact" element={<Contact />} />
