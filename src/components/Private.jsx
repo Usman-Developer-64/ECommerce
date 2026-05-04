@@ -14,7 +14,7 @@ const Private = () => {
   }
 
   if (!isSignedIn) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/login" replace={true} />;
   }
 
   return <Outlet />;

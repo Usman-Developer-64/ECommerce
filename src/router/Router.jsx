@@ -10,23 +10,23 @@ import Private from "../components/Private"
 const Router = () => {
     return (
         <Routes>
-            {/* Public Page */}
+            {/* Public Page: Sirf login page bahar rahega */}
             <Route path="/login" element={<Login />} />
 
-            {/* Private Pages (Managed by Private.jsx) */}
+            {/* Private Routes: Jo bhi naya banda aayega, usay ye pages nahi dikhenge */}
             <Route element={<Private />}>
-                {/* <Route element={<Layout />}> */}
-                <Route path="/" element={<Home />} />
+                {/* MAINE HOME KO ANDAR KAR DIYA HAI ✅ */}
+                <Route path="/" element={<Home />} /> 
                 <Route path="/collection" element={<Collection />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/product/:id" element={<DetailPage />} />
             </Route>
 
-            {/* Catch-all */}
+            {/* Agar koi galat URL dale toh "/" pe bhej do, 
+                kyunki "/" ab private hai toh wo automatically login pe phenk dega */}
             <Route path="*" element={<Navigate to="/" />} />
         </Routes>
     )
 }
-
 export default Router
