@@ -1,7 +1,7 @@
 import { NavLink, useLocation, useNavigate } from "react-router-dom"
 import { LogOut, ShoppingCart, Menu, X, Search } from "lucide-react"; // Menu aur X icons add kiye
 import { useFetch } from "../context/Context";
-import { Show, SignInButton, SignOutButton, SignUp, useClerk, UserButton } from "@clerk/react";
+import {  SignInButton, SignOutButton, SignUp, useClerk, UserButton } from "@clerk/clerk-react";
 import { useState } from "react"; // State add ki
 
 const Navbar = () => {
@@ -96,7 +96,7 @@ const Navbar = () => {
                 </div>
             </div>
 
-            
+
         </nav>
 
 

@@ -3,31 +3,26 @@ import Home from "../pages/Home"
 import Collection from "../pages/Collection"
 import Cart from "../pages/Cart"
 import Login from "../pages/Login"
-import { useUser } from "@clerk/react"
 import DetailPage from "../pages/DetailPage"
 import Contact from "../pages/Contact"
-import Layout from "../pages/Layout"
 import Private from "../components/Private"
 
 const Router = () => {
-    const { user, isLoaded } = useUser()
-
-    if (!isLoaded) return null
-
     return (
         <Routes>
-            <Route path="/login" element={!user ? <Login /> : <Navigate to="/" />} />
+            {/* Public Page */}
+            <Route path="/login" element={<Login />} />
 
+            {/* Private Pages (Managed by Private.jsx) */}
             <Route element={<Private />}>
-                {/* <Route element={<Layout />}> */}
                 <Route path="/" element={<Home />} />
-                <Route path="collection" element={<Collection />} />
-                <Route path="contact" element={<Contact />} />
-                <Route path="cart" element={<Cart />} />
-                <Route path="product/:id" element={<DetailPage />} />
-                {/* </Route> */}
+                <Route path="/collection" element={<Collection />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/cart" element={<Cart />} />
+                <Route path="/product/:id" element={<DetailPage />} />
             </Route>
 
+            {/* Catch-all */}
             <Route path="*" element={<Navigate to="/" />} />
         </Routes>
     )

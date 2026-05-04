@@ -63,7 +63,6 @@ const Collections = () => {
           );
         })}
       </div>
-      <Footer />
     </>
   )
 }

@@ -145,7 +145,6 @@ export default function DetailPage() {
                     </div>
                 </div>
             </div>
-            <Footer />
         </div>
     )
 }

@@ -1,15 +1,23 @@
-import React from 'react'
-import { Navigate, Outlet } from 'react-router-dom'
-import { useUser } from '@clerk/react'
+import { useAuth } from "@clerk/clerk-react";
+import { Loader2 } from "lucide-react";
+import { Navigate, Outlet } from "react-router-dom";
 
 const Private = () => {
-    const { isSignedIn, isLoaded } = useUser()
+  const { isSignedIn, isLoaded } = useAuth();
 
-    if (!isLoaded) return null
-
+  if (!isLoaded) {
     return (
-        isSignedIn ? <Outlet /> : <Navigate to="/login" replace />
-    )
-}
+      <div className="flex h-screen items-center justify-center font-bold text-2xl">
+        <Loader2 size={40} className="animate-spin text-indigo-600" />
+      </div>
+    );
+  }
 
-export default Private
+  if (!isSignedIn) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return <Outlet />;
+};
+
+export default Private;
