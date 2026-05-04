@@ -12,6 +12,7 @@ const Navbar = () => {
     const { signOut } = useClerk();
     const { isLoaded, isSignedIn } = useUser(); // User status check karne ke liye
     const [isOpen, setIsOpen] = useState(false);
+    const totalItems = cartProduct.reduce((acc, item) => acc + (item.quantity || 1), 0);
 
     // Sahi Logout function
     async function logout() {
@@ -63,7 +64,7 @@ const Navbar = () => {
                 <div className="flex relative cursor-pointer items-center" onClick={() => navigate("/cart")}>
                     <ShoppingCart />
                     <span className="absolute -top-2 -right-2 bg-blue-600 text-white text-[10px] w-5 h-5 flex items-center justify-center rounded-full">
-                        {cartProduct.length}
+                        {totalItems}
                     </span>
                 </div>
 

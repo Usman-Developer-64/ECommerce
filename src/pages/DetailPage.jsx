@@ -1,61 +1,44 @@
-import axios from "axios"
-import { Loader2, Star } from "lucide-react"
-import { useEffect, useState } from "react"
-import { Link, useParams } from "react-router-dom"
-import { useFetch } from "../context/Context"
-import Footer from "./Footer"
+import axios from "axios";
+import { Loader2, Star, Plus, Minus, ShoppingCart } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import { useFetch } from "../context/Context";
 
 function classNames(...classes) {
-    let { loading, error } = useFetch()
-    if (loading) {
-        return <div className='flex items-center justify-center h-screen'><Loader2 className='animate-spin' size={40} /></div>
-    }
-
-    if (error) {
-        return <div className='flex items-center justify-center h-screen text-2xl md:text-4xl font-bold text-red-500 text-center px-4'>{error}</div>
-    }
-
-
-
-    return classes.filter(Boolean).join(' ')
+    return classes.filter(Boolean).join(' ');
 }
 
 export default function DetailPage() {
-    let { loading, error } = useFetch()
-    let { id } = useParams()
-    let [productsInfo, setProductsInfo] = useState(null)
-    let { cartProduct, setCartProduct } = useFetch()
+    let { loading, error, cartProduct, addToCart, increaseQty, decreaseQty } = useFetch();
+    let { id } = useParams();
+    let [productsInfo, setProductsInfo] = useState(null);
 
-    const handleAddToBag = (e) => {
-        e.preventDefault();
-        const currentCart = JSON.parse(localStorage.getItem("cart")) || [];
-        const updatedCart = [...currentCart, productsInfo];
-        localStorage.setItem("cart", JSON.stringify(updatedCart));
-        setCartProduct([...cartProduct, productsInfo])
-    };
+    // 1. Check quantity for this specific product
+    const productInCart = cartProduct.find((p) => p.id === Number(id));
+    const quantity = productInCart ? (productInCart.quantity || 1) : 0;
 
     async function getProducts() {
         try {
-            let response = await axios.get(`https://dummyjson.com/products/${id}`)
-            setProductsInfo(response.data)
+            let response = await axios.get(`https://dummyjson.com/products/${id}`);
+            setProductsInfo(response.data);
         } catch (err) {
-            console.error("Error fetching product:", err)
+            console.error("Error fetching product:", err);
         }
     }
 
     useEffect(() => {
         getProducts();
         window.scrollTo(0, 0);
-    }, [id])
+    }, [id]);
 
-    if (loading) return <div className='flex items-center justify-center h-screen'><Loader2 className="animate-spin" size={40} /></div>
-    if (error) return <div className='flex items-center justify-center h-screen text-xl font-bold text-red-500'>{error}</div>
+    if (loading) return <div className='flex items-center justify-center h-screen'><Loader2 className="animate-spin" size={40} /></div>;
+    if (error) return <div className='flex items-center justify-center h-screen text-xl font-bold text-red-500'>{error}</div>;
     if (!productsInfo) return null;
 
     return (
         <div className="bg-white min-h-screen">
             <div className="pt-6">
-                {/* 1. Breadcrumb - Responsive Padding */}
+                {/* Breadcrumb */}
                 <nav aria-label="Breadcrumb" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <ol role="list" className="flex items-center space-x-2 text-sm text-gray-500">
                         <li>
@@ -70,21 +53,15 @@ export default function DetailPage() {
                     </ol>
                 </nav>
 
-                {/* 2. Main Layout - Mobile: Single Column | Desktop: Grid */}
                 <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:grid lg:grid-cols-2 lg:gap-x-12 lg:px-8">
-
                     {/* LEFT: Image Gallery */}
                     <div className="flex flex-col items-center">
                         <div className="w-full bg-gray-50 rounded-2xl p-4 flex items-center justify-center aspect-square">
                             <img
                                 alt={productsInfo.title}
-                                src={productsInfo.images[0]}
+                                src={productsInfo.thumbnail}
                                 className="max-h-full w-auto object-contain transition-transform duration-300 hover:scale-105"
                             />
-                        </div>
-                        {/* Thumbnails Row */}
-                        <div className="flex gap-4 mt-4 overflow-x-auto pb-2 no-scrollbar w-full justify-center lg:justify-start">
-
                         </div>
                     </div>
 
@@ -94,14 +71,12 @@ export default function DetailPage() {
 
                         <div className="mt-4 flex items-center justify-between lg:justify-start lg:gap-8">
                             <p className="text-3xl font-bold text-gray-900">${productsInfo.price}</p>
-                            {/* Rating */}
                             <div className="flex items-center gap-1 bg-yellow-50 px-3 py-1 rounded-full">
                                 <Star size={18} className="text-yellow-500 fill-yellow-500" />
                                 <span className="text-sm font-bold text-yellow-700">{productsInfo.rating}</span>
                             </div>
                         </div>
 
-                        {/* Stock & Brand Badges */}
                         <div className="mt-6 flex flex-wrap gap-3">
                             <span className="bg-indigo-50 text-indigo-700 text-xs font-bold px-3 py-1 rounded-md uppercase">
                                 Brand: {productsInfo.brand || "Generic"}
@@ -116,22 +91,42 @@ export default function DetailPage() {
 
                         <div className="mt-8">
                             <h3 className="text-sm font-bold text-gray-900 uppercase tracking-widest">Description</h3>
-                            <p className="mt-3 text-base text-gray-600 leading-relaxed">
-                                {productsInfo.description}
-                            </p>
+                            <p className="mt-3 text-base text-gray-600 leading-relaxed">{productsInfo.description}</p>
                         </div>
 
-                        {/* Action Button */}
+                        {/* Updated Action Button / Quantity Controls */}
                         <div className="mt-10">
-                            <button
-                                onClick={handleAddToBag}
-                                className="w-full bg-indigo-600 text-white py-4 px-8 rounded-xl font-bold text-lg hover:bg-indigo-700 active:scale-95 transition-all shadow-lg shadow-indigo-100"
-                            >
-                                Add to Cart
-                            </button>
+                            {quantity === 0 ? (
+                                <button
+                                    onClick={() => addToCart(productsInfo)}
+                                    className="w-full flex items-center justify-center gap-3 bg-indigo-600 text-white py-4 px-8 rounded-xl font-bold text-lg hover:bg-indigo-700 active:scale-95 transition-all shadow-lg shadow-indigo-100"
+                                >
+                                    <ShoppingCart size={20} /> Add to Cart
+                                </button>
+                            ) : (
+                                <div className="flex items-center justify-between bg-gray-100 p-2 rounded-xl border-2 border-indigo-600">
+                                    <button
+                                        onClick={() => decreaseQty(productsInfo.id)}
+                                        className="p-3 bg-white rounded-lg shadow-sm hover:text-red-600 transition-colors"
+                                    >
+                                        <Minus size={24} strokeWidth={3} />
+                                    </button>
+
+                                    <div className="flex flex-col items-center">
+                                        <span className="text-2xl font-black text-indigo-600">{quantity}</span>
+                                        <span className="text-[10px] font-bold text-gray-400 uppercase">In Cart</span>
+                                    </div>
+
+                                    <button
+                                        onClick={() => increaseQty(productsInfo.id)}
+                                        className="p-3 bg-white rounded-lg shadow-sm hover:text-green-600 transition-colors"
+                                    >
+                                        <Plus size={24} strokeWidth={3} />
+                                    </button>
+                                </div>
+                            )}
                         </div>
 
-                        {/* Extra Info Grid */}
                         <div className="mt-10 border-t border-gray-100 pt-8 grid grid-cols-2 gap-y-8 gap-x-4">
                             <div>
                                 <h3 className="text-xs font-bold text-gray-400 uppercase">Return Policy</h3>
@@ -146,5 +141,5 @@ export default function DetailPage() {
                 </div>
             </div>
         </div>
-    )
+    );
 }
