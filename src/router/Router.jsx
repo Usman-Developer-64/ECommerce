@@ -15,6 +15,7 @@ const Router = () => {
 
             {/* Private Pages (Managed by Private.jsx) */}
             <Route element={<Private />}>
+                {/* <Route element={<Layout />}> */}
                 <Route path="/" element={<Home />} />
                 <Route path="/collection" element={<Collection />} />
                 <Route path="/contact" element={<Contact />} />
