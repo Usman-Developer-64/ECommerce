@@ -5,7 +5,7 @@ import { Loader2 } from "lucide-react";
 
 const ProtectedRoute = ({ children }) => {
   const { isSignedIn, isLoaded } = useAuth();
-  const navigate = useNavigate();
+  const navigate = useNavigate(scrollTo(0, 0));
 
   useEffect(() => {
     // Agar loading khatam ho gayi aur user login nahi hai

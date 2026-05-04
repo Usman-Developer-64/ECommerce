@@ -7,7 +7,7 @@ import { useState } from "react";
 
 const Navbar = () => {
     const location = useLocation();
-    let navigate = useNavigate()
+    let navigate = useNavigate(scrollTo(0, 0));
     let { cartProduct, search, setSearch } = useFetch()
     const { signOut } = useClerk();
     const { isLoaded, isSignedIn } = useUser(); // User status check karne ke liye

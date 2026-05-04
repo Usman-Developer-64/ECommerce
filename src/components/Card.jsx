@@ -6,7 +6,7 @@ export default function Card({ item, isCart, index }) {
     // const [count, setCount] = useState(0);
     let { title, category, price, rating, thumbnail, discountPercentage, id } = item || {}
     let { cartProduct, setCartProduct } = useFetch()
-    const navigate = useNavigate();
+    const navigate = useNavigate(scrollTo(0, 0));
     function goToDetail() {
         navigate(`/product/${id}`);
     };
